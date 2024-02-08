@@ -1,0 +1,52 @@
+version: '3'
+
+networks:
+  logikom:
+    external: true
+
+services:
+
+  backend:
+    restart: always
+    container_name: whatsapp_backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=root
+      - DB_NAME=logikom_wb
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - BACKEND_URL=${BACKEND_URL}
+      - FRONTEND_URL=https://was.logikom.uy
+      - PROXY_PORT=${PROXY_PORT}
+      - CHROME_ARGS=--no-sandbox --disable-setuid-sandbox
+    ports:
+      - 8080:3000
+    volumes:
+      - ./backend/public/:/usr/src/app/public/
+      - ./backend/.wwebjs_auth/:/usr/src/app/.wwebjs_auth/
+    networks:
+      - logikom
+
+  frontend:
+    restart: always
+    container_name: whatsapp_frontend
+    ports:
+      - ${FRONTEND_PORT:-3000}:80
+      - ${FRONTEND_SSL_PORT:-3001}:443
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    environment:
+      - URL_BACKEND=backend:3000
+      - REACT_APP_BACKEND_URL=https://api.logikom.uy
+      - FRONTEND_SERVER_NAME=${FRONTEND_SERVER_NAME}
+      - BACKEND_SERVER_NAME=${BACKEND_SERVER_NAME}
+      - REACT_APP_SITE_NAME=Logikom WhatsApp Business
+    
+    networks:
+      - logikom
+
