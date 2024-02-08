@@ -1,17 +1,11 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?business=VWW3BHW4AWHUY&item_name=Desenvolvimento+de+Software&currency_code=BRL)
-[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B21084%2Fgithub.com%2Fcanove%2Fwhaticket.svg?type=shield)](https://app.fossa.com/projects/custom%2B21084%2Fgithub.com%2Fcanove%2Fwhaticket?ref=badge_shield)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=canove_whaticket&metric=alert_status)](https://sonarcloud.io/dashboard?id=canove_whaticket)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=canove_whaticket&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=canove_whaticket)
-[![Discord Chat](https://img.shields.io/discord/784109818247774249.svg?logo=discord)](https://discord.gg/Dp2tTZRYHg)
-[![Forum](https://img.shields.io/badge/forum-online-blue.svg?logo=discourse)](https://whaticket.online/)
 
-# WhaTicket
+# WaSender Logikom
 
-**NOTE**: The new version of whatsapp-web.js required Node 14. Upgrade your installations to keep using it.
+**NOTA**: Esta app funciona gracias a la librería whatsapp-web.js requiere minimo Node 14. O actualizaso segun tus necesidades.
 
-A _very simple_ Ticket System based on WhatsApp messages.
+Una manera simple de enviar mensajes por WhatsApp, con panel de control y api.
 
-Backend uses [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) to receive and send WhatsApp messages, create tickets from them and store all in a MySQL database.
+El Backend usa [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) para recibir mensajes, crea tickets y los almacena en MYSQL.
 
 Frontend is a full-featured multi-user _chat app_ bootstrapped with react-create-app and Material UI, that comunicates with backend using REST API and Websockets. It allows you to interact with contacts, tickets, send and receive WhatsApp messages.
 
@@ -24,11 +18,6 @@ On every new message received in an associated WhatsApp, a new Ticket is created
 Subsequent messages from same contact will be related to first **open/pending** ticket found.
 
 If a contact sent a new message in less than 2 hours interval, and there is no ticket from this contact with **pending/open** status, the newest **closed** ticket will be reopen, instead of creating a new one.
-
-## Screenshots
-
-![](https://github.com/canove/whaticket/raw/master/images/whaticket-queues.gif)
-<img src="https://raw.githubusercontent.com/canove/whaticket/master/images/chat2.png" width="350"> <img src="https://raw.githubusercontent.com/canove/whaticket/master/images/chat3.png" width="350"> <img src="https://raw.githubusercontent.com/canove/whaticket/master/images/multiple-whatsapps2.png" width="350"> <img src="https://raw.githubusercontent.com/canove/whaticket/master/images/contacts1.png" width="350">
 
 ## Features
 
@@ -45,7 +34,7 @@ Create Mysql Database using docker:
 _Note_: change MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_USER and MYSQL_ROOT_PASSWORD.
 
 ```bash
-docker run --name whaticketdb -e MYSQL_ROOT_PASSWORD=strongpassword -e MYSQL_DATABASE=whaticket -e MYSQL_USER=whaticket -e MYSQL_PASSWORD=whaticket --restart always -p 3306:3306 -d mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+docker run --name wasenderdb -e MYSQL_ROOT_PASSWORD=strongpassword -e MYSQL_DATABASE=wasender -e MYSQL_USER=wasender -e MYSQL_PASSWORD=wasender --restart always -p 3306:3306 -d mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
 
 # Or run using `docker-compose` as below
 # Before copy .env.example to .env first and set the variables in the file.
@@ -65,7 +54,7 @@ sudo apt-get install -y libxshmfence-dev libgbm-dev wget unzip fontconfig locale
 Clone this repo
 
 ```bash
-git clone https://github.com/canove/whaticket/ whaticket
+git clone https://github.com/baldomerocho/wasender/ wasender
 ```
 
 Go to backend folder and create .env file:
@@ -179,7 +168,7 @@ Create Mysql Database using docker:
 _Note_: change MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_USER and MYSQL_ROOT_PASSWORD.
 
 ```bash
-docker run --name whaticketdb -e MYSQL_ROOT_PASSWORD=strongpassword -e MYSQL_DATABASE=whaticket -e MYSQL_USER=whaticket -e MYSQL_PASSWORD=whaticket --restart always -p 3306:3306 -d mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+docker run --name wasenderdb -e MYSQL_ROOT_PASSWORD=strongpassword -e MYSQL_DATABASE=wasender -e MYSQL_USER=wasender -e MYSQL_PASSWORD=wasender --restart always -p 3306:3306 -d mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
 
 # Or run using `docker-compose` as below
 # Before copy .env.example to .env first and set the variables in the file.
@@ -194,14 +183,14 @@ Clone this repository:
 
 ```bash
 cd ~
-git clone https://github.com/canove/whaticket whaticket
+git clone https://github.com/baldomerocho/wasender wasender
 ```
 
 Create backend .env file and fill with details:
 
 ```bash
-cp whaticket/backend/.env.example whaticket/backend/.env
-nano whaticket/backend/.env
+cp wasender/backend/.env.example wasender/backend/.env
+vim wasender/backend/.env
 ```
 
 ```bash
@@ -230,7 +219,7 @@ sudo apt-get install -y libxshmfence-dev libgbm-dev wget unzip fontconfig locale
 Install backend dependencies, build app, run migrations and seeds:
 
 ```bash
-cd whaticket/backend
+cd wasender/backend
 npm install
 npm run build
 npx sequelize db:migrate
@@ -243,7 +232,7 @@ Install pm2 **with sudo**, and start backend with it:
 
 ```bash
 sudo npm install -g pm2
-pm2 start dist/server.js --name whaticket-backend
+pm2 start dist/server.js --name wasender-backend
 ```
 
 Make pm2 auto start after reboot:
@@ -280,7 +269,7 @@ npm run build
 Start frontend with pm2, and save pm2 process list to start automatically after reboot:
 
 ```bash
-pm2 start server.js --name whaticket-frontend
+pm2 start server.js --name wasender-frontend
 pm2 save
 ```
 
@@ -291,8 +280,8 @@ deploy@ubuntu-whats:~$ pm2 list
 ┌─────┬─────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
 │ id  │ name                    │ namespace   │ version │ mode    │ pid      │ uptime │ .    │ status    │ cpu      │ mem      │ user     │ watching │
 ├─────┼─────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-│ 1   │ whaticket-frontend      │ default     │ 0.1.0   │ fork    │ 179249   │ 12D    │ 0    │ online    │ 0.3%     │ 50.2mb   │ deploy   │ disabled │
-│ 6   │ whaticket-backend       │ default     │ 1.0.0   │ fork    │ 179253   │ 12D    │ 15   │ online    │ 0.3%     │ 118.5mb  │ deploy   │ disabled │
+│ 1   │ wasender-frontend      │ default     │ 0.1.0   │ fork    │ 179249   │ 12D    │ 0    │ online    │ 0.3%     │ 50.2mb   │ deploy   │ disabled │
+│ 6   │ wasender-backend       │ default     │ 1.0.0   │ fork    │ 179253   │ 12D    │ 15   │ online    │ 0.3%     │ 118.5mb  │ deploy   │ disabled │
 └─────┴─────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
 
 ```
@@ -312,7 +301,7 @@ sudo rm /etc/nginx/sites-enabled/default
 Create a new nginx site to frontend app:
 
 ```bash
-sudo nano /etc/nginx/sites-available/whaticket-frontend
+sudo nano /etc/nginx/sites-available/wasender-frontend
 ```
 
 Edit and fill it with this information, changing `server_name` to yours equivalent to `myapp.mydomain.com`:
@@ -338,8 +327,8 @@ server {
 Create another one to backend api, changing `server_name` to yours equivalent to `api.mydomain.com`, and `proxy_pass` to your localhost backend node server URL:
 
 ```bash
-sudo cp /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-available/whaticket-backend
-sudo nano /etc/nginx/sites-available/whaticket-backend
+sudo cp /etc/nginx/sites-available/wasender-frontend /etc/nginx/sites-available/wasender-backend
+sudo nano /etc/nginx/sites-available/wasender-backend
 ```
 
 ```bash
@@ -355,8 +344,8 @@ server {
 Create a symbolic links to enable nginx sites:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/whaticket-frontend /etc/nginx/sites-enabled
-sudo ln -s /etc/nginx/sites-available/whaticket-backend /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/wasender-frontend /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/wasender-backend /etc/nginx/sites-enabled
 ```
 
 By default, nginx limit body size to 1MB, which isn't enough for some media uploads. Lets change it to 20MB, adding a new line to config file:
@@ -394,7 +383,7 @@ sudo certbot --nginx
 
 ### Using docker and docker-compose
 
-To run WhaTicket using docker you must perform the following steps:
+To run WaSender using docker you must perform the following steps:
 
 ```bash
 cp .env.example .env
@@ -407,7 +396,7 @@ Now it will be necessary to configure the .env using its information, the variab
 MYSQL_ENGINE=                           # default: mariadb
 MYSQL_VERSION=                          # default: 10.6
 MYSQL_ROOT_PASSWORD=strongpassword      # change it please
-MYSQL_DATABASE=whaticket
+MYSQL_DATABASE=wasender
 MYSQL_PORT=3306                         # default: 3306; Use this port to expose mysql server
 TZ=America/Fortaleza                    # default: America/Fortaleza; Timezone for mysql
 
@@ -471,25 +460,25 @@ certbot certonly --cert-name frontend --webroot --webroot-path ./ssl/www/ -d mya
 
 ## Access Data
 
-User: admin@whaticket.com
+User: admin@logikom.com
 Password: admin
 
 ## Upgrading
 
-WhaTicket is a working in progress and we are adding new features frequently. To update your old installation and get all the new features, you can use a bash script like this:
+WaSender is a working in progress and we are adding new features frequently. To update your old installation and get all the new features, you can use a bash script like this:
 
 **Note**: Always check the .env.example and adjust your .env file before upgrading, since some new variable may be added.
 
 ```bash
-nano updateWhaticket
+vim updatewasender
 ```
 
 ```bash
 #!/bin/bash
-echo "Updating Whaticket, please wait."
+echo "Updating wasender, please wait."
 
 cd ~
-cd whaticket
+cd wasender
 git pull
 cd backend
 npm install
@@ -509,24 +498,6 @@ echo "Update finished. Enjoy!"
 Make it executable and run it:
 
 ```bash
-chmod +x updateWhaticket
-./updateWhaticket
+chmod +x updatewasender
+./updatewasender
 ```
-
-## Contributing
-
-This project helps you and you want to help keep it going? Buy me a coffee:
-
-<a href="https://www.buymeacoffee.com/canove" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 61px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-Para doações em BRL, utilize o Paypal:
-
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?business=VWW3BHW4AWHUY&item_name=Desenvolvimento+de+Software&currency_code=BRL)
-
-Any help and suggestions will be apreciated.
-
-## Disclaimer
-
-I just started leaning Javascript a few months ago and this is my first project. It may have security issues and many bugs. I recommend using it only on local network.
-
-This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with WhatsApp or any of its subsidiaries or its affiliates. The official WhatsApp website can be found at https://whatsapp.com. "WhatsApp" as well as related names, marks, emblems and images are registered trademarks of their respective owners.
