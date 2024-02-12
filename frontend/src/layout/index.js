@@ -137,12 +137,12 @@ const LoggedInLayout = ({ children }) => {
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
-    setMenuOpen(false);
+    setMenuOpen(true);
   };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
-    setMenuOpen(true);
+    setMenuOpen(false);
   };
 
   const handleOpenUserModal = () => {
