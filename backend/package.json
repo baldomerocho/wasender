@@ -38,6 +38,7 @@
     "sequelize-cli": "^5.5.1",
     "sequelize-typescript": "^1.1.0",
     "socket.io": "^3.0.5",
+    "tmp-promise": "^3.0.3",
     "uuid": "^8.3.2",
     "whatsapp-web.js": "^1.22.1",
     "yup": "^0.32.8"

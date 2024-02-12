@@ -142,7 +142,7 @@ const LoggedInLayout = ({ children }) => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
-    setMenuOpen(false);
+    setMenuOpen(true);
   };
 
   const handleOpenUserModal = () => {
