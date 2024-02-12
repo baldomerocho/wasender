@@ -23,7 +23,13 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json({ limit: process.env.MAX_JSON_SIZE || "1mb" }));
+app.use(
+  express.urlencoded({
+    limit: process.env.MAX_JSON_SIZE || "1mb",
+    extended: true
+  })
+);
 app.use(Sentry.Handlers.requestHandler());
 app.use("/public", express.static(uploadConfig.directory));
 app.use(routes);
