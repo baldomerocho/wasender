@@ -40,7 +40,7 @@
     "socket.io": "^3.0.5",
     "tmp-promise": "^3.0.3",
     "uuid": "^8.3.2",
-    "whatsapp-web.js": "^1.22.1",
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#webpack-exodus",
     "yup": "^0.32.8"
   },
   "devDependencies": {
