@@ -99,7 +99,6 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   const contactAndTicket = await createContact(whatsappId, newContact.number);
 
   if (fileB64) {
-    console.log("fileB64", fileB64);
     const ext = type.split("/")[1];
     const base64Clear = fileB64.replace(/^data:application\/pdf;base64,/, "");
     const fileBuffer = Buffer.from(base64Clear, "base64");
