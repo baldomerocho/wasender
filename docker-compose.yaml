@@ -23,6 +23,7 @@ services:
       - FRONTEND_URL=https://was.logikom.uy
       - PROXY_PORT=${PROXY_PORT}
       - CHROME_ARGS=--no-sandbox --disable-setuid-sandbox
+      - MAX_JSON_SIZE=4mb
     ports:
       - 8080:3000
     volumes:
