@@ -136,6 +136,8 @@ const Settings = () => {
 					/>
 				</Paper>
 
+				<a href="https://admin.logikom.uy/" target="_blank">Panel de admin</a>
+
 			</Container>
 		</div>
 	);
