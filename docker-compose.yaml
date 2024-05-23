@@ -9,9 +9,7 @@ services:
   backend:
     restart: always
     container_name: whatsapp_backend
-    build:
-      context: ./backend
-      dockerfile: ./Dockerfile
+    image: ghcr.io/baldomerocho/wasender/waslogikom_backend:latest
     environment:
       - DB_HOST=mysql
       - DB_USER=root
@@ -38,9 +36,7 @@ services:
     ports:
       - ${FRONTEND_PORT:-3000}:80
       - ${FRONTEND_SSL_PORT:-3001}:443
-    build:
-      context: ./frontend
-      dockerfile: ./Dockerfile
+    image: ghcr.io/baldomerocho/wasender/waslogikom_frontend:latest
     environment:
       - URL_BACKEND=backend:3000
       - REACT_APP_BACKEND_URL=https://api.logikom.uy
