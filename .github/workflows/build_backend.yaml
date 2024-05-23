@@ -1,0 +1,29 @@
+name: Build Backend and push Docker images
+
+on:
+    push:
+        branches: [ master ]
+        paths:
+          - 'backend/**'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Check out code
+          uses: actions/checkout@v2
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v1
+          with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+
+        - name: Build and push backend Docker image
+          uses: docker/build-push-action@v2
+          with:
+                context: ./backend
+                push: true
+                tags: ghcr.io/${{ github.repository }}/waslogikom_backend:latest
