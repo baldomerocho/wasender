@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  whaticket:
+  logikom:
 
 services:
 
@@ -12,4 +12,4 @@ services:
     ports:
       - ${PMA_PORT:-9000}:80
     networks:
-      - whaticket
+      - logikom

@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  whaticket:
+  logikom:
 
 services:
 
@@ -14,4 +14,4 @@ services:
     environment:
       - MAX_CONCURRENT_SESSIONS=${MAX_CONCURRENT_SESSIONS:-1}
     networks:
-      - whaticket
+      - logikom
